@@ -16,34 +16,44 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
+const sortGoods = (goods, type, reversed) => {
+  let sortedGoods = [...goods];
+
+  switch (type) {
+    case 'Alphavit':
+      sortedGoods = [...goods].sort((a, b) => a.localeCompare(b));
+      break;
+
+    case 'Lenghth':
+      sortedGoods.sort((a, b) => a.length - b.length);
+      break;
+
+    default:
+      break;
+  }
+
+  return reversed ? sortedGoods.reverse() : sortedGoods;
+};
+
 export const App = () => {
-  const [goods, setGoods] = useState(goodsFromServer);
+  const [goods] = useState(goodsFromServer);
   const [sortFill, setSortFill] = useState('');
   const [reversed, setReversed] = useState(false);
+  const sorterGoods = sortGoods(goods, sortFill, reversed);
 
   const sortByAlphavit = () => {
-    setGoods([...goods].slice().sort());
     setSortFill('Alphavit');
-    setReversed(false);
   };
 
   const sortByLenghth = () => {
-    const sortGoods = [...goods].sort((a, b) => a.length - b.length);
-
-    setGoods(sortGoods);
-
     setSortFill('Lenghth');
   };
 
   const sortByReverse = () => {
-    const reversedGoods = [...goods].reverse();
-
-    setGoods(reversedGoods);
     setReversed(!reversed);
   };
 
   const goReset = () => {
-    setGoods(goodsFromServer);
     setSortFill('');
     setReversed(false);
   };
@@ -95,7 +105,7 @@ export const App = () => {
       </div>
 
       <ul>
-        {goods.map(item => (
+        {sorterGoods.map(item => (
           <li key={item} data-cy="Good">
             {item}
           </li>
