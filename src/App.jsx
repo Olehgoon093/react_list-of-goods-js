@@ -20,11 +20,11 @@ const sortGoods = (goods, type, reversed) => {
   let sortedGoods = [...goods];
 
   switch (type) {
-    case 'Alphavit':
+    case 'Alphabet':
       sortedGoods = [...goods].sort((a, b) => a.localeCompare(b));
       break;
 
-    case 'Lenghth':
+    case 'Length':
       sortedGoods.sort((a, b) => a.length - b.length);
       break;
 
@@ -42,11 +42,11 @@ export const App = () => {
   const sorterGoods = sortGoods(goods, sortFill, reversed);
 
   const sortByAlphavit = () => {
-    setSortFill('Alphavit');
+    setSortFill('Alphabet');
   };
 
   const sortByLenghth = () => {
-    setSortFill('Lenghth');
+    setSortFill('Length');
   };
 
   const sortByReverse = () => {
@@ -64,7 +64,7 @@ export const App = () => {
         <button
           type="button"
           className={cn('button is-info', {
-            'is-light': sortFill !== 'Alphavit',
+            'is-light': sortFill !== 'Alphabet',
           })}
           onClick={sortByAlphavit}
         >
